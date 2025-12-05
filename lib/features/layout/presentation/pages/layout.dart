@@ -1,9 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:ott_platform/core/common/ui/custom_bottom_menu.dart';
 import 'package:ott_platform/features/index.dart';
 import 'package:ott_platform/features/layout/presentation/widgets/appbar.dart';
-import 'package:ott_platform/features/layout/presentation/widgets/drawer.dart';
 
 class Layout extends StatefulWidget {
   const Layout({super.key});
@@ -22,45 +20,15 @@ class Layout extends StatefulWidget {
       widget: SearchView(),
     ),
     NavigationItem(
-      icon: 'assets/icons/nav/ic-mingcute-tv.svg',
-      label: 'TV',
-      index: 2,
-      widget: DashboardView(),
-    ),
-    NavigationItem(
-      icon: 'assets/icons/nav/ic-mingcute-video-camera.svg',
-      label: 'Movies',
-      index: 3,
-      widget: DashboardView(),
-    ),
-    NavigationItem(
-      icon: 'assets/icons/nav/ic-mingcute-trending-up.svg',
-      label: 'Trending',
-      index: 4,
-      widget: DashboardView(),
-    ),
-    NavigationItem(
-      icon: 'assets/icons/nav/ic-mingcute-lightning.svg',
-      label: 'Sparks',
-      index: 5,
-      widget: DashboardView(),
-    ),
-    NavigationItem(
       icon: 'assets/icons/nav/ic-mingcute-classify.svg',
       label: 'Categories',
-      index: 6,
+      index: 2,
       widget: CategoriesView(),
     ),
     NavigationItem(
-      icon: 'assets/icons/nav/ic-mingcute-heart.svg',
-      label: 'My List',
-      index: 7,
-      widget: DashboardView(),
-    ),
-    NavigationItem(
       icon: 'assets/icons/nav/ic-mingcute-user.svg',
-      label: 'My Space',
-      index: 8,
+      label: 'User',
+      index: 3,
       widget: DashboardView(),
     ),
   ];
@@ -70,66 +38,66 @@ class Layout extends StatefulWidget {
 }
 
 class _LayoutState extends State<Layout> {
-  bool _isDrawerOpen = false;
+  late PageController _pageController;
   int _currentIndex = 0;
 
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: _currentIndex);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   void _onItemTapped(int index) {
+    if (_currentIndex != index) {
+      setState(() => _currentIndex = index);
+      _pageController.animateToPage(
+        index,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void _onPageChanged(int index) {
     setState(() => _currentIndex = index);
-    Navigator.of(context).maybePop();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      backgroundColor: const Color.fromARGB(255, 15, 15, 15),
-      drawerScrimColor: Colors.transparent,
-      resizeToAvoidBottomInset: false,
-      onDrawerChanged: (isOpened) {
-        setState(() => _isDrawerOpen = isOpened);
+    final theme = Theme.of(context);
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        if (!didPop) {
+          // If we're not on the home page, navigate to home
+          if (_currentIndex != 0) {
+            _onItemTapped(0);
+          }
+          // If we're already on home, do nothing (prevent app from closing)
+        }
       },
-      appBar: CustomAppBar(isDrawerOpen: _isDrawerOpen),
-      drawer: CustomDrawer(
-        navItems: Layout._navItems,
-        currentIndex: _currentIndex,
-        onItemTapped: _onItemTapped,
-      ),
-      body: Stack(
-        children: [
-          Layout._navItems[_currentIndex].widget,
-          Positioned.fill(
-            child: TweenAnimationBuilder<double>(
-              tween: Tween<double>(begin: 0, end: _isDrawerOpen ? 1 : 0),
-              duration: const Duration(milliseconds: 220),
-              curve: Curves.easeOut,
-              builder: (context, value, child) {
-                if (value == 0) {
-                  return const SizedBox.shrink();
-                }
-
-                return GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    if (_isDrawerOpen) {
-                      Navigator.of(context).maybePop();
-                    }
-                  },
-                  child: ClipRect(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(
-                        sigmaX: 20 * value,
-                        sigmaY: 20 * value,
-                      ),
-                      child: Container(
-                        color: Colors.black.withOpacity(0.4 * value),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+      child: Scaffold(
+        extendBody: true,
+        extendBodyBehindAppBar: true,
+        backgroundColor: theme.scaffoldBackgroundColor,
+        resizeToAvoidBottomInset: false,
+        appBar: const CustomAppBar(),
+        bottomNavigationBar: CustomBottomMenu(
+          screenWidth: MediaQuery.of(context).size.width,
+          currentIndex: _currentIndex,
+          onIconPressed: _onItemTapped,
+        ),
+        body: PageView(
+          controller: _pageController,
+          onPageChanged: _onPageChanged,
+          children: Layout._navItems.map((item) => item.widget).toList(),
+        ),
       ),
     );
   }

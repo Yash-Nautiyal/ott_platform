@@ -31,17 +31,13 @@ class MyApp extends StatelessWidget {
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder:
           (context, state) => AnimatedTheme(
-            data: buildTheme(
-              preset: state.preset,
-              brightness: state.brightness,
-            ),
+            data: buildTheme(brightness: Brightness.dark),
             duration: const Duration(milliseconds: 100),
             child: MaterialApp(
               title: 'OTT Platform',
               debugShowCheckedModeBanner: false,
               theme: state.themeData,
-
-              home: const Layout(), // your root screen
+              home: const Layout(),
             ),
           ),
     );

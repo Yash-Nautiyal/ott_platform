@@ -1,40 +1,46 @@
-import 'package:sizer/sizer.dart';
 import 'package:flutter/material.dart';
-import 'package:ott_platform/features/dashboard/presentation/widgets/heading/heading.dart';
+import 'package:ott_platform/core/data/sample_content.dart';
+import 'package:ott_platform/core/common/constant/app_dimensions.dart';
+import 'package:ott_platform/features/dashboard/presentation/widgets/trending_card.dart';
+import 'package:ott_platform/features/dashboard/presentation/widgets/heading/header_slider.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = const Color.fromARGB(255, 15, 15, 15);
-
+    final theme = Theme.of(context);
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          SizedBox(
-            height: 50.h,
-            width: double.infinity,
-            child: Stack(
-              fit: StackFit.expand,
+          HeaderSlider(content: SampleContent.trendingContent.take(6).toList()),
+          const SizedBox(height: 30),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppDimensions.paddingL),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset('assets/images/joker.jpg', fit: BoxFit.cover),
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      stops: const [0.5, 0.77, 1],
-                      colors: [
-                        backgroundColor.withOpacity(0),
-                        backgroundColor.withOpacity(0.65),
-                        backgroundColor,
-                      ],
-                    ),
+                Text(
+                  'Trending Now',
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                const Heading(),
+                const SizedBox(height: 16),
+                SizedBox(
+                  height: 305,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.only(bottom: 8),
+                    itemBuilder: (context, index) {
+                      final content = SampleContent.trendingContent[index];
+                      return TrendingCard(content: content, onTap: () {});
+                    },
+                    itemCount: SampleContent.trendingContent.length,
+                  ),
+                ),
               ],
             ),
           ),

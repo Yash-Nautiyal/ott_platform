@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 
-enum Fonts { inter, dmSans, nunitoSans, montserrat, lato, roboto, poppins }
+enum Fonts { montserrat, poppins, dosis, jura }
 
 class AppTypography {
   static const Map<Fonts, String> fontMap = {
-    Fonts.inter: 'Inter',
-    Fonts.dmSans: 'DM Sans',
-    Fonts.nunitoSans: 'Nunito Sans',
     Fonts.montserrat: 'Montserrat',
-    Fonts.lato: 'Lato',
-    Fonts.roboto: 'Roboto',
     Fonts.poppins: 'Poppins',
+    Fonts.dosis: 'Dosis',
+    Fonts.jura: 'Nunito',
   };
-  static const String secondaryFont = 'Barlow';
+  static const String secondaryFont = 'Jura';
 
   static String primaryFont = fontMap[Fonts.montserrat]!;
 
@@ -32,21 +29,18 @@ class AppTypography {
 
   // Headings
   static TextStyle displayLarge = TextStyle(
-    fontFamily: secondaryFont,
     fontWeight: extraBold,
     fontSize: 40,
     height: 1.25,
   );
 
   static TextStyle displayMedium = TextStyle(
-    fontFamily: secondaryFont,
     fontWeight: extraBold,
     fontSize: 32,
     height: 1.25,
   );
 
   static TextStyle displaySmall = TextStyle(
-    fontFamily: secondaryFont,
     fontWeight: bold,
     fontSize: 26,
     height: 1.25,

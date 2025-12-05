@@ -1,67 +1,21 @@
 import 'package:flutter/material.dart';
 
-enum Presets { blue, green, purple, orange, red, darkBlue }
-
 class AppPallete {
   // Primary Colors
-  static const blue = {
-    "Lighter": infoLighter,
-    "Light": infoLight,
-    "Main": infoMain,
-    "Dark": infoDark,
-    "Darker": infoDarker,
-  };
-  static const green = {
-    "Lighter": successLighter,
-    "Light": successLight,
-    "Main": successMain,
-    "Dark": successDark,
-    "Darker": successDarker,
-  };
-  static const purple = {
-    "Lighter": secondaryLighter,
-    "Light": secondaryLight,
-    "Main": secondaryMain,
-    "Dark": secondaryDark,
-    "Darker": secondaryDarker,
-  };
-  static const orange = {
-    "Lighter": warningLighter,
-    "Light": warningLight,
-    "Main": warningMain,
-    "Dark": warningDark,
-    "Darker": warningDarker,
-  };
-  static const red = {
-    "Lighter": errorLighter,
-    "Light": errorLight,
-    "Main": errorMain,
-    "Dark": errorDark,
-    "Darker": errorDarker,
-  };
-
-  static const darkBlue = {
-    "Lighter": Color(0xFFD6E4FF),
-    "Light": Color(0xFF84A9FF),
-    "Main": Color(0xFF3366FF),
-    "Dark": Color(0xFF1939B7),
-    "Darker": Color(0xFF091A7A),
-  };
-
-  static const Color primaryLighter = Color(0xFFC8FAD6);
-  static const Color primaryLight = Color(0xFF5BE49B);
-  static const Color primaryMain = Color(0xFF00A76F);
-  static const Color primaryDark = Color(0xFF007867);
-  static const Color primaryDarker = Color(0xFF004B50);
+  static const Color primaryLighter = Color(0xFFFFCDD2);
+  static const Color primaryLight = Color(0xFFFF6B6B);
+  static const Color primaryMain = Color.fromARGB(255, 218, 56, 56);
+  static const Color primaryDark = Color(0xFFB20710);
+  static const Color primaryDarker = Color(0xFF8B0000);
   static const Color primaryContrastText = Color(0xFFFFFFFF);
 
   // Secondary Colors
-  static const Color secondaryLighter = Color(0xFFEFD6FF);
-  static const Color secondaryLight = Color(0xFFC684FF);
-  static const Color secondaryMain = Color(0xFF8E33FF);
-  static const Color secondaryDark = Color(0xFF5119B7);
-  static const Color secondaryDarker = Color(0xFF27097A);
-  static const Color secondaryContrastText = Color(0xFFFFFFFF);
+  static const Color secondaryLighter = Color(0xFFFFF8E1);
+  static const Color secondaryLight = Color(0xFFFFD54F);
+  static const Color secondaryMain = Color(0xFFFFC107);
+  static const Color secondaryDark = Color(0xFFF57C00);
+  static const Color secondaryDarker = Color(0xFFE65100);
+  static const Color secondaryContrastText = Color(0xFF1C252E);
 
   // Info Colors
   static const Color infoLighter = Color(0xFFCAFDF5);
@@ -112,13 +66,4 @@ class AppPallete {
   static const Color white = Color(0xFFFFFFFF);
 
   static const Color containerColor = Color(0xFF28323D);
-
-  static const Map<Presets, dynamic> primaryPresets = {
-    Presets.blue: blue,
-    Presets.green: green,
-    Presets.orange: orange,
-    Presets.purple: purple,
-    Presets.red: red,
-    Presets.darkBlue: darkBlue,
-  };
 }

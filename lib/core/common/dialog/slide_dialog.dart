@@ -90,41 +90,44 @@ class _SlideDialogState extends State<SlideDialog>
                   height: MediaQuery.of(context).size.height,
                   child: ClipRRect(
                     child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                      child: SafeArea(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0,
-                          ).copyWith(top: 10, bottom: 10),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    widget.title,
-                                    style: widget.theme.textTheme.titleLarge,
-                                  ),
-                                  const Spacer(),
-                                  if (widget.onRefresh != null)
+                      filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                      child: Container(
+                        color: Colors.black.withOpacity(0.4),
+                        child: SafeArea(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20.0,
+                            ).copyWith(top: 10, bottom: 10),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      widget.title,
+                                      style: widget.theme.textTheme.titleLarge,
+                                    ),
+                                    const Spacer(),
+                                    if (widget.onRefresh != null)
+                                      IconButton(
+                                        onPressed: widget.onRefresh,
+                                        icon: Icon(
+                                          Icons.refresh,
+                                          color: widget.theme.disabledColor,
+                                        ),
+                                      ),
                                     IconButton(
-                                      onPressed: widget.onRefresh,
+                                      onPressed: _closeDialog,
                                       icon: Icon(
-                                        Icons.refresh,
+                                        Icons.close,
                                         color: widget.theme.disabledColor,
                                       ),
                                     ),
-                                  IconButton(
-                                    onPressed: _closeDialog,
-                                    icon: Icon(
-                                      Icons.close,
-                                      color: widget.theme.disabledColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                              Expanded(child: widget.child),
-                            ],
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                                Expanded(child: widget.child),
+                              ],
+                            ),
                           ),
                         ),
                       ),

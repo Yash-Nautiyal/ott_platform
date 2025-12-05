@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ott_platform/core/common/dialog/slide_dialog.dart';
 import 'package:ott_platform/core/common/settings/settings_font_card.dart';
-import 'package:ott_platform/core/common/settings/settings_preset_card.dart';
-import 'package:ott_platform/core/theme/app_pallete.dart';
 import 'package:ott_platform/core/theme/app_typography.dart';
 import 'package:ott_platform/core/theme/bloc/theme_bloc.dart';
 
@@ -13,9 +11,7 @@ class SettingsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final presets = AppPallete.primaryPresets;
     final fonts = AppTypography.fontMap;
-    final currentPreset = context.watch<ThemeBloc>().state.preset;
     final currentFont = context.watch<ThemeBloc>().state.font;
     final scrollController = ScrollController();
     return SlideDialog(
@@ -27,6 +23,7 @@ class SettingsDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            
             SettingsFontCard(
               theme: theme,
               fonts: fonts,

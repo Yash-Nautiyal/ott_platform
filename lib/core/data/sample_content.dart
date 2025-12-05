@@ -1,0 +1,166 @@
+import 'package:ott_platform/core/models/content_model.dart';
+
+class SampleContent {
+  static final List<ContentModel> trendingContent = [
+    ContentModel(
+      id: '1',
+      title: 'The Dark Knight',
+      type: ContentType.movie,
+      description:
+          'When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.',
+      imagePath: 'assets/images/the_batman.jpg',
+      year: 2008,
+      durationMinutes: 152,
+      rating: 9.0,
+      genres: [Genre.action, Genre.crime, Genre.drama],
+      director: 'Christopher Nolan',
+      cast: ['Christian Bale', 'Heath Ledger', 'Aaron Eckhart'],
+      isTrending: true,
+    ),
+    ContentModel(
+      id: '2',
+      title: 'Joker',
+      type: ContentType.movie,
+      description:
+          'In Gotham City, mentally troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime.',
+      imagePath: 'assets/images/joker.jpg',
+      year: 2019,
+      durationMinutes: 122,
+      rating: 8.4,
+      genres: [Genre.crime, Genre.drama, Genre.thriller],
+      director: 'Todd Phillips',
+      cast: ['Joaquin Phoenix', 'Robert De Niro', 'Zazie Beetz'],
+      isTrending: true,
+    ),
+    ContentModel(
+      id: '3',
+      title: 'Stranger Things',
+      type: ContentType.series,
+      description:
+          'When a young boy disappears, his mother, a police chief and his friends must confront terrifying supernatural forces in order to get him back.',
+      imagePath: 'assets/images/the_batman.jpg',
+      year: 2016,
+      durationMinutes: 50,
+      rating: 8.7,
+      genres: [Genre.sciFi, Genre.horror, Genre.drama],
+      cast: ['Millie Bobby Brown', 'Finn Wolfhard', 'Winona Ryder'],
+      seasons: 4,
+      episodes: 34,
+      isTrending: true,
+    ),
+    ContentModel(
+      id: '4',
+      title: 'Inception',
+      type: ContentType.movie,
+      description:
+          'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.',
+      imagePath: 'assets/images/joker.jpg',
+      year: 2010,
+      durationMinutes: 148,
+      rating: 8.8,
+      genres: [Genre.action, Genre.sciFi, Genre.thriller],
+      director: 'Christopher Nolan',
+      cast: ['Leonardo DiCaprio', 'Joseph Gordon-Levitt', 'Ellen Page'],
+      isTrending: true,
+    ),
+    ContentModel(
+      id: '5',
+      title: 'Breaking Bad',
+      type: ContentType.series,
+      description:
+          'A high school chemistry teacher diagnosed with terminal lung cancer turns to manufacturing and selling methamphetamine to secure his family\'s future.',
+      imagePath: 'assets/images/the_batman.jpg',
+      year: 2008,
+      durationMinutes: 47,
+      rating: 9.5,
+      genres: [Genre.crime, Genre.drama, Genre.thriller],
+      cast: ['Bryan Cranston', 'Aaron Paul', 'Anna Gunn'],
+      seasons: 5,
+      episodes: 62,
+      isTrending: true,
+    ),
+    ContentModel(
+      id: '6',
+      title: 'Interstellar',
+      type: ContentType.movie,
+      description:
+          'A team of explorers travel through a wormhole in space in an attempt to ensure humanity\'s survival.',
+      imagePath: 'assets/images/joker.jpg',
+      year: 2014,
+      durationMinutes: 169,
+      rating: 8.6,
+      genres: [Genre.adventure, Genre.drama, Genre.sciFi],
+      director: 'Christopher Nolan',
+      cast: ['Matthew McConaughey', 'Anne Hathaway', 'Jessica Chastain'],
+      isTrending: true,
+    ),
+    ContentModel(
+      id: '7',
+      title: 'The Witcher',
+      type: ContentType.series,
+      description:
+          'Geralt of Rivia, a solitary monster hunter, struggles to find his place in a world where people often prove more wicked than beasts.',
+      imagePath: 'assets/images/the_batman.jpg',
+      year: 2019,
+      durationMinutes: 60,
+      rating: 8.2,
+      genres: [Genre.action, Genre.adventure, Genre.fantasy],
+      cast: ['Henry Cavill', 'Anya Chalotra', 'Freya Allan'],
+      seasons: 3,
+      episodes: 24,
+      isTrending: true,
+    ),
+    ContentModel(
+      id: '8',
+      title: 'Parasite',
+      type: ContentType.movie,
+      description:
+          'Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan.',
+      imagePath: 'assets/images/joker.jpg',
+      year: 2019,
+      durationMinutes: 132,
+      rating: 8.6,
+      genres: [Genre.comedy, Genre.drama, Genre.thriller],
+      director: 'Bong Joon Ho',
+      cast: ['Song Kang-ho', 'Lee Sun-kyun', 'Cho Yeo-jeong'],
+      isTrending: true,
+    ),
+    ContentModel(
+      id: '9',
+      title: 'Wednesday',
+      type: ContentType.series,
+      description:
+          'Follows Wednesday Addams\' years as a student, when she attempts to master her emerging psychic ability.',
+      imagePath: 'assets/images/the_batman.jpg',
+      year: 2022,
+      durationMinutes: 50,
+      rating: 8.1,
+      genres: [Genre.comedy, Genre.crime, Genre.fantasy],
+      cast: ['Jenna Ortega', 'Emma Myers', 'Hunter Doohan'],
+      seasons: 1,
+      episodes: 8,
+      isTrending: true,
+    ),
+    ContentModel(
+      id: '10',
+      title: 'Dune',
+      type: ContentType.movie,
+      description:
+          'A noble family becomes embroiled in a war for control over the galaxy\'s most valuable asset while its heir becomes troubled by visions of a dark future.',
+      imagePath: 'assets/images/joker.jpg',
+      year: 2021,
+      durationMinutes: 155,
+      rating: 8.0,
+      genres: [Genre.action, Genre.adventure, Genre.drama],
+      director: 'Denis Villeneuve',
+      cast: ['Timothée Chalamet', 'Rebecca Ferguson', 'Zendaya'],
+      isTrending: true,
+    ),
+  ];
+
+  static List<ContentModel> get movies =>
+      trendingContent.where((c) => c.isMovie).toList();
+
+  static List<ContentModel> get series =>
+      trendingContent.where((c) => c.isSeries).toList();
+}

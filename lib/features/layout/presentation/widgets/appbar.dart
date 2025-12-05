@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ott_platform/core/common/settings/settings.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key, required this.isDrawerOpen});
-  final bool isDrawerOpen;
+  const CustomAppBar({super.key});
 
   @override
   State<CustomAppBar> createState() => _CustomAppBarState();
@@ -38,18 +37,18 @@ class _CustomAppBarState extends State<CustomAppBar>
       foregroundColor: Colors.white,
       surfaceTintColor: Colors.white,
       backgroundColor: Colors.transparent,
-      leading: IconButton(
-        onPressed: () => Scaffold.of(context).openDrawer(),
-        icon: Icon(
-          Icons.menu,
-          color: widget.isDrawerOpen ? Colors.transparent : Colors.white,
-        ),
-      ),
+      leading:
+          Navigator.of(context).canPop()
+              ? IconButton(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+              )
+              : null,
       actions: [
         IconButton(
           icon: RotationTransition(
             turns: turnsTween.animate(_controller),
-            child: Icon(Icons.settings, color: Colors.white),
+            child: const Icon(Icons.settings, color: Colors.white),
           ),
           onPressed: () {
             Navigator.of(context).push(

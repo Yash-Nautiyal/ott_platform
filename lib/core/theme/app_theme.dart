@@ -1,120 +1,82 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart' show GoogleFonts;
-import 'package:ott_platform/core/theme/app_pallete.dart'
-    show AppPallete, Presets;
+import 'package:ott_platform/core/theme/app_pallete.dart' show AppPallete;
 import 'package:ott_platform/core/theme/app_typography.dart'
     show AppTypography, Fonts;
 
 class AppTheme {
-  static ThemeData lightTheme = buildTheme(brightness: Brightness.light);
-
-  // Theme Data for Dark Mode
-  static ThemeData darkTheme = buildTheme(brightness: Brightness.dark);
+  static ThemeData darkTheme = buildTheme(font: Fonts.montserrat);
 }
 
 ThemeData buildTheme({
-  Presets preset = Presets.green,
-  Brightness brightness = Brightness.light,
-  Fonts font = Fonts.lato,
+  Brightness brightness = Brightness.dark,
+  Fonts font = Fonts.montserrat,
 }) {
-  final colorscheme =
-      AppPallete.primaryPresets.entries
-          .firstWhere((entry) => entry.key == preset)
-          .value;
+  // Use primary colors directly
+  final primaryMain = AppPallete.primaryMain;
+  final primaryLight = AppPallete.primaryLight;
+  final primaryLighter = AppPallete.primaryLighter;
 
   final baseTextTheme = TextTheme(
-    displayLarge: AppTypography.displayLarge.copyWith(
-      color:
-          brightness == Brightness.dark ? AppPallete.white : AppPallete.grey800,
-    ),
+    displayLarge: AppTypography.displayLarge.copyWith(color: AppPallete.white),
     displayMedium: AppTypography.displayMedium.copyWith(
-      color:
-          brightness == Brightness.dark ? AppPallete.white : AppPallete.grey800,
+      color: AppPallete.white,
     ),
-    displaySmall: AppTypography.displaySmall.copyWith(
-      color:
-          brightness == Brightness.dark ? AppPallete.white : AppPallete.grey800,
-    ),
-    titleLarge: AppTypography.titleLarge.copyWith(
-      color:
-          brightness == Brightness.dark ? AppPallete.white : AppPallete.grey800,
-    ),
-    titleMedium: AppTypography.titleMedium.copyWith(
-      color:
-          brightness == Brightness.dark ? AppPallete.white : AppPallete.grey800,
-    ),
-    titleSmall: AppTypography.titleSmall.copyWith(
-      color:
-          brightness == Brightness.dark ? AppPallete.white : AppPallete.grey800,
-    ),
-    bodyLarge: AppTypography.bodyLarge.copyWith(
-      color:
-          brightness == Brightness.dark ? AppPallete.white : AppPallete.grey800,
-    ),
-    bodyMedium: AppTypography.bodyMedium.copyWith(
-      color:
-          brightness == Brightness.dark
-              ? AppPallete.grey500
-              : AppPallete.grey600,
-    ),
-    bodySmall: AppTypography.bodySmall.copyWith(
-      color:
-          brightness == Brightness.dark
-              ? AppPallete.grey600
-              : AppPallete.grey500,
-    ),
-    labelLarge: AppTypography.labelLarge.copyWith(
-      color:
-          brightness == Brightness.dark ? AppPallete.white : AppPallete.grey800,
-    ),
+    displaySmall: AppTypography.displaySmall.copyWith(color: AppPallete.white),
+    titleLarge: AppTypography.titleLarge.copyWith(color: AppPallete.white),
+    titleMedium: AppTypography.titleMedium.copyWith(color: AppPallete.white),
+    titleSmall: AppTypography.titleSmall.copyWith(color: AppPallete.white),
+    bodyLarge: AppTypography.bodyLarge.copyWith(color: AppPallete.white),
+    bodyMedium: AppTypography.bodyMedium.copyWith(color: AppPallete.grey500),
+    bodySmall: AppTypography.bodySmall.copyWith(color: AppPallete.grey600),
+    labelLarge: AppTypography.labelLarge.copyWith(color: AppPallete.white),
   );
-  final googleTextTheme = GoogleFonts.getTextTheme(
+
+  // Primary text theme (headings/titles) -> uses selected primary font
+  final primaryGoogleTextTheme = GoogleFonts.getTextTheme(
     AppTypography.fontFamily(font),
     baseTextTheme,
+  );
+  // Secondary text theme (details/body) -> always uses Barlow
+  final secondaryGoogleTextTheme = GoogleFonts.getTextTheme(
+    AppTypography.secondaryFont,
+    baseTextTheme,
+  );
+
+  // Mix: headings & titles in primary font, detail/body text in Barlow
+  final mixedTextTheme = secondaryGoogleTextTheme.copyWith(
+    displayLarge: primaryGoogleTextTheme.displayLarge,
+    displayMedium: primaryGoogleTextTheme.displayMedium,
+    displaySmall: primaryGoogleTextTheme.displaySmall,
+    titleLarge: primaryGoogleTextTheme.titleLarge,
+    titleMedium: primaryGoogleTextTheme.titleMedium,
+    titleSmall: primaryGoogleTextTheme.titleSmall,
   );
 
   return ThemeData(
     useMaterial3: true,
-    brightness: brightness,
-    primaryColor: colorscheme["Main"],
-    scaffoldBackgroundColor:
-        brightness == Brightness.dark ? AppPallete.grey900 : AppPallete.white,
-    dividerColor:
-        brightness == Brightness.dark ? AppPallete.grey600 : AppPallete.grey500,
-    disabledColor:
-        brightness == Brightness.dark ? AppPallete.grey500 : AppPallete.grey600,
-    cardColor:
-        brightness == Brightness.dark ? AppPallete.grey800 : AppPallete.white,
-    shadowColor:
-        brightness == Brightness.dark
-            ? AppPallete.grey900
-            // ignore: deprecated_member_use
-            : AppPallete.black.withOpacity(.08),
-    indicatorColor:
-        brightness == Brightness.dark
-            ? AppPallete.infoDark
-            : AppPallete.infoMain,
-    hoverColor:
-        brightness == Brightness.dark
-            ? const Color.fromARGB(255, 33, 41, 49)
-            : AppPallete.grey300,
+    brightness: Brightness.dark,
+    primaryColor: primaryMain,
+    scaffoldBackgroundColor: const Color.fromARGB(255, 15, 15, 15),
+    dividerColor: AppPallete.grey600,
+    disabledColor: AppPallete.grey500,
+    cardColor: AppPallete.grey800,
+    shadowColor: AppPallete.grey900,
+    indicatorColor: AppPallete.infoDark,
+    hoverColor: const Color.fromARGB(255, 33, 41, 49),
     //-------------------------------------------------------------------------------------
 
     //Text Theme
     fontFamily: AppTypography.primaryFont,
-    textTheme: googleTextTheme,
+    textTheme: mixedTextTheme,
+    primaryTextTheme: mixedTextTheme,
     //-------------------------------------------------------------------------------------
 
     //AppBar Theme
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.transparent,
-      iconTheme: IconThemeData(
-        color:
-            brightness == Brightness.dark
-                ? AppPallete.white
-                : AppPallete.grey800,
-      ),
+      iconTheme: IconThemeData(color: AppPallete.white),
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
@@ -123,56 +85,21 @@ ThemeData buildTheme({
     //-------------------------------------------------------------------------------------
 
     //Color Scheme
-    colorScheme:
-        brightness == Brightness.dark
-            ? ColorScheme.dark(
-              primary: colorscheme["Main"],
-              primaryFixedDim: colorscheme["Light"],
-              primaryContainer: colorscheme["Lighter"],
-              primaryFixed: colorscheme["Lighter"],
-              secondary:
-                  preset != Presets.purple
-                      ? AppPallete.secondaryDark
-                      : AppPallete.primaryDark,
-              secondaryFixedDim:
-                  preset != Presets.purple
-                      ? AppPallete.secondaryDarker
-                      : AppPallete.primaryDarker,
-              secondaryContainer:
-                  preset != Presets.purple
-                      ? AppPallete.secondaryLighter
-                      : AppPallete.primaryLighter,
-              error: AppPallete.errorMain,
-              errorContainer: AppPallete.errorMain,
-              surface: AppPallete.grey800,
-              tertiary: AppPallete.white,
-              surfaceContainer: AppPallete.containerColor,
-              surfaceDim: AppPallete.grey700,
-            )
-            : ColorScheme.light(
-              primary: colorscheme["Main"],
-              primaryFixedDim: colorscheme["Dark"],
-              primaryContainer: colorscheme["Lighter"],
-              primaryFixed: colorscheme["Dark"],
-              secondary:
-                  preset != Presets.purple
-                      ? AppPallete.secondaryMain
-                      : AppPallete.primaryMain,
-              secondaryFixedDim:
-                  preset != Presets.purple
-                      ? AppPallete.secondaryLight
-                      : AppPallete.primaryLight,
-              secondaryContainer:
-                  preset != Presets.purple
-                      ? AppPallete.secondaryDark
-                      : AppPallete.primaryDark,
-              error: AppPallete.errorMain,
-              errorContainer: AppPallete.errorLight,
-              surface: AppPallete.grey200,
-              tertiary: AppPallete.grey900,
-              surfaceContainer: AppPallete.grey300,
-              surfaceDim: AppPallete.grey300,
-            ),
+    colorScheme: ColorScheme.dark(
+      primary: primaryMain,
+      primaryFixedDim: primaryLight,
+      primaryContainer: primaryLighter,
+      primaryFixed: primaryLighter,
+      secondary: AppPallete.secondaryDark,
+      secondaryFixedDim: AppPallete.secondaryDarker,
+      secondaryContainer: AppPallete.secondaryLighter,
+      error: AppPallete.errorMain,
+      errorContainer: AppPallete.errorMain,
+      surface: AppPallete.grey800,
+      tertiary: AppPallete.white,
+      surfaceContainer: AppPallete.containerColor,
+      surfaceDim: AppPallete.grey700,
+    ),
 
     //-------------------------------------------------------------------------------------
 
@@ -193,13 +120,7 @@ ThemeData buildTheme({
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(12)),
-            side: BorderSide(
-              color:
-                  brightness == Brightness.dark
-                      ? AppPallete.grey600
-                      : AppPallete.grey400,
-              width: 1.5,
-            ),
+            side: BorderSide(color: AppPallete.grey600, width: 1.5),
           ),
         ),
       ),
@@ -229,12 +150,8 @@ ThemeData buildTheme({
         shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
-        backgroundColor: WidgetStatePropertyAll(
-          brightness == Brightness.dark ? AppPallete.white : AppPallete.grey800,
-        ),
-        foregroundColor: WidgetStatePropertyAll(
-          brightness == Brightness.dark ? AppPallete.grey800 : AppPallete.white,
-        ),
+        backgroundColor: WidgetStatePropertyAll(AppPallete.white),
+        foregroundColor: WidgetStatePropertyAll(AppPallete.grey800),
       ),
       cancelButtonStyle: ButtonStyle(
         shape: WidgetStatePropertyAll(
@@ -245,22 +162,14 @@ ThemeData buildTheme({
       dayPeriodTextColor: WidgetStateColor.resolveWith(
         (states) =>
             states.contains(WidgetState.selected)
-                ? brightness == Brightness.dark
-                    ? AppPallete.grey800
-                    : AppPallete.white
-                : brightness == Brightness.dark
-                ? AppPallete.white
-                : AppPallete.grey800,
+                ? AppPallete.grey800
+                : AppPallete.white,
       ),
       dayPeriodColor: WidgetStateColor.resolveWith(
         (states) =>
             states.contains(WidgetState.selected)
-                ? brightness == Brightness.dark
-                    ? AppPallete.white
-                    : AppPallete.grey800
-                : brightness == Brightness.dark
-                ? AppPallete.grey800
-                : AppPallete.white,
+                ? AppPallete.white
+                : AppPallete.grey800,
       ),
     ),
     //-------------------------------------------------------------------------------------
@@ -276,12 +185,8 @@ ThemeData buildTheme({
         shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
-        backgroundColor: WidgetStatePropertyAll(
-          brightness == Brightness.dark ? AppPallete.white : AppPallete.grey800,
-        ),
-        foregroundColor: WidgetStatePropertyAll(
-          brightness == Brightness.dark ? AppPallete.grey800 : AppPallete.white,
-        ),
+        backgroundColor: WidgetStatePropertyAll(AppPallete.white),
+        foregroundColor: WidgetStatePropertyAll(AppPallete.grey800),
       ),
       cancelButtonStyle: ButtonStyle(
         shape: WidgetStatePropertyAll(
@@ -289,9 +194,7 @@ ThemeData buildTheme({
         ),
         foregroundColor: WidgetStatePropertyAll(AppPallete.grey500),
       ),
-      rangeSelectionBackgroundColor: (colorscheme["Main"] as Color).withOpacity(
-        .15,
-      ),
+      rangeSelectionBackgroundColor: primaryMain.withOpacity(.15),
       rangePickerShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
@@ -300,13 +203,9 @@ ThemeData buildTheme({
 
     //Switch Theme
     switchTheme: SwitchThemeData(
-      thumbColor: WidgetStatePropertyAll(
-        brightness == Brightness.dark ? AppPallete.black : AppPallete.white,
-      ),
+      thumbColor: WidgetStatePropertyAll(AppPallete.black),
       trackOutlineColor: WidgetStatePropertyAll(Colors.transparent),
-      trackColor: WidgetStatePropertyAll(
-        brightness == Brightness.dark ? AppPallete.white : AppPallete.grey400,
-      ),
+      trackColor: WidgetStatePropertyAll(AppPallete.white),
     ),
   );
 }

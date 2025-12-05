@@ -8,6 +8,7 @@ class HeadingDateTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Row(
       children: [
         Row(
@@ -19,12 +20,7 @@ class HeadingDateTime extends StatelessWidget {
               width: 17,
             ),
             const SizedBox(width: 5),
-            Text(
-              date,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.white),
-            ),
+            Text(date, style: theme.textTheme.bodyMedium),
           ],
         ),
         const SizedBox(width: 15),
@@ -37,12 +33,7 @@ class HeadingDateTime extends StatelessWidget {
               width: 17,
             ),
             const SizedBox(width: 5),
-            Text(
-              time,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.white),
-            ),
+            Text(time, style: theme.textTheme.bodyMedium),
           ],
         ),
       ],

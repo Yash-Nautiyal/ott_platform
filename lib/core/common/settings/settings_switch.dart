@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ott_platform/core/theme/bloc/theme_bloc.dart';
 
 class SettingsSwitch extends StatelessWidget {
   final String icon;
@@ -33,23 +31,14 @@ class SettingsSwitch extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SvgPicture.asset(
-                icon,
-                color:
-                    theme.brightness == Brightness.dark
-                        ? theme.disabledColor
-                        : null,
-              ),
+              SvgPicture.asset(icon, color: theme.disabledColor),
               const SizedBox(width: 50),
-              BlocBuilder<ThemeBloc, ThemeState>(
-                builder:
-                    (context, state) => Transform.scale(
-                      scale: 0.65,
-                      child: Switch(
-                        value: state.brightness == Brightness.dark,
-                        onChanged: (_) => onSwitch(),
-                      ),
-                    ),
+              Transform.scale(
+                scale: 0.65,
+                child: Switch(
+                  value: true, // Always dark mode
+                  onChanged: (_) => onSwitch(),
+                ),
               ),
             ],
           ),

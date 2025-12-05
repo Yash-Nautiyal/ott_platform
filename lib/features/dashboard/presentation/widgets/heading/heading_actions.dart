@@ -1,22 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:ott_platform/core/common/ui/custom_buttoms.dart';
+import 'package:ott_platform/core/common/ui/custom_button.dart';
+import 'package:ott_platform/core/models/content_model.dart';
+import 'package:ott_platform/features/details/presentation/pages/detail_view.dart';
 
 class HeadingActions extends StatelessWidget {
-  const HeadingActions({super.key});
+  final ContentModel content;
+  const HeadingActions({super.key, required this.content});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Row(
       children: [
-        CustomButtoms(
+        CustomButtons(
           icon: 'assets/icons/common/ic-solar-play.svg',
           text: 'Watch Trailer',
-          borderColor: const Color.fromARGB(255, 218, 56, 56),
-          backgroundColor: const Color.fromARGB(255, 218, 56, 56),
-          onPressed: () {},
+          borderColor: theme.primaryColor,
+          backgroundColor: theme.primaryColor,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailView(content: content),
+              ),
+            );
+          },
         ),
         const SizedBox(width: 10),
-        CustomButtoms(
+        CustomButtons(
           icon: 'assets/icons/common/ic-round-local-movies.svg',
           text: 'More Details',
           onPressed: () {},
